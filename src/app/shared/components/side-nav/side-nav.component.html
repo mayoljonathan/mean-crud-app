@@ -1,0 +1,23 @@
+<mat-toolbar>
+	<button mat-icon-button (click)="toggleDrawer()">
+		<mat-icon aria-label="Menu">menu</mat-icon>
+	</button>
+	<div class="page-title">{{ selectedDestination }}</div> 
+</mat-toolbar>
+
+<mat-sidenav-container>
+	<!-- Sidenav -->
+	<mat-sidenav mode="side" [opened]="drawerOpen">
+		<button *ngFor="let destination of destinations" class="destination" [class.selected]="selectedDestination == destination.name" mat-button (click)="navigateToDestination(destination.name)">{{destination.name | uppercase }}</button>
+	</mat-sidenav>
+
+	<!-- Main Content-->
+	<!-- <mat-sidenav-content>
+		<router-outlet></router-outlet>
+	</mat-sidenav-content> -->
+</mat-sidenav-container>
+
+<!-- Main Content Here, If you want the content not to follow the side nav when opened -->
+<div class="mat-app-background">
+	<router-outlet></router-outlet>
+</div>

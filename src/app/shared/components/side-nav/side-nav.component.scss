@@ -1,0 +1,48 @@
+@import '../../../../sass/variables';
+
+.page-title {
+    margin-left: 32px;
+    text-transform: capitalize;
+}
+
+mat-toolbar {
+    background-color: $primary-color;
+    color: #fff;
+    position: fixed; // stick it to the top
+    top: 0;
+    z-index: 2;
+}
+
+mat-sidenav-container{
+    margin-top: 64px;
+    
+    mat-sidenav{
+        width: 250px;
+        border-right: 1px solid $divider-color;
+        margin-top: 64px;
+        position: fixed !important;
+        top: 0;
+        left: 0;
+
+        .mat-button{
+            height: 48px;
+        }
+    }
+    
+}
+
+.destination {
+    width: 100%;
+    text-align: left;
+}
+.destination.selected {
+    background-color: #E0E0E0;
+}
+
+
+@media (max-width: 600px) {
+    mat-sidenav-container,
+    mat-sidenav {
+        margin-top: 56px !important;
+    }
+}
