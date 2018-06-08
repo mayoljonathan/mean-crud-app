@@ -9,7 +9,9 @@
     "build": "ng build --prod --build-optimizer",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "git push origin master && git push heroku master",
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -56,5 +58,9 @@
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1"
+  },
+  "engines": {
+    "node": "8.11.2",
+    "npm": "5.3.0"
   }
 }

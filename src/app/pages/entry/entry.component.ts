@@ -15,11 +15,11 @@ export class EntryComponent implements OnInit {
   @ViewChild('username') username;
   @ViewChild('name') name;
 
-  private user: User;
+  user: User;
 
-  private isLoading: boolean = false;
-  private selectedIndex: number = 0;
-  private hidePassword: boolean = true;
+  isLoading: boolean = false;
+  selectedIndex: number = 0;
+  hidePassword: boolean = true;
 
   constructor(
     private router: Router,
