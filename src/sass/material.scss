@@ -1,7 +1,13 @@
+// OVERRIDES TO THE MATERIAL COMPONENTS
+
 mat-card-content {
   margin: 0 8px !important;
 }
 
 mat-tab-header {
   display: none !important; 
+}
+
+mat-form-field {
+  height: 62px !important;
 }

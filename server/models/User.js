@@ -5,8 +5,8 @@ const bcrypt = require('bcrypt');
 
 const { Validation, Generate } = require('../helpers');
 
-// create a schema
-const UserSchema = new Schema({
+
+var UserSchema = new Schema({
   id: { 
     type: String, 
     unique: true 
@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     required: [true, 'Name is required.'],
     minlength: [10, 'Name must be at least 10 characters.'],
     maxlength: [50, 'Name must not be greater than 50 characters.'],
-    trim: true
+    trim: true,
   },
   username: { 
     type: String, 
@@ -31,11 +31,12 @@ const UserSchema = new Schema({
   password: { 
     type: String, 
     required: [true, 'Password is required.'],
-    minlength: [6, 'Password must be of minimum 6 characters length.']
+    minlength: [6, 'Password must be at least 6 characters.']
   },
   created_at: Date,
   updated_at: Date
-});
+}, {strict: false});
+
 
 // you can create more important methods like name validations or formatting
 // you can also do queries and find similar users 
@@ -54,6 +55,7 @@ UserSchema.statics.authenticate = (username, password , callback) => {
     .exec((err, user) => {
       if (err) {
         console.log('Error in mongoDB');
+        console.log(err);
         return callback({
           status: 500,
           errorName: 'ServerError',
@@ -83,6 +85,11 @@ UserSchema.statics.authenticate = (username, password , callback) => {
     });
 }
 
+// UserSchema.pre('validate', (next) => {
+//   console.log('Before validation');
+//   console.log(next);
+//   next();
+// });
 
 // on every save, add the date
 // hashing a password before saving it to the database
@@ -111,6 +118,13 @@ UserSchema.pre('save', function(next) {
   });
   
 });
+
+// UserSchema.post('save', function(error, doc, next) {
+//   console.log('Error in saving')  ;
+//   console.log(error);
+//   console.log(doc);
+//   next();
+// });
 
 // the schema is useless so far
 // we need to create a model using it

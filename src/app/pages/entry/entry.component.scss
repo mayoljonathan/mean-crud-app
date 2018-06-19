@@ -17,10 +17,6 @@
     border-top-right-radius: 2px;
   }
 
-  .entry-form {
-    padding: 24px 0 0;      
-  }
-
   form {
     margin: 0 32px;
   }
@@ -28,7 +24,12 @@
 
 mat-tab-group {
   margin: -24px;
+  
+  form mat-form-field:first-of-type {
+    padding: 24px 0 0 !important;
+  } 
 }
+
 
 mat-card-content {
   margin: 0 !important;

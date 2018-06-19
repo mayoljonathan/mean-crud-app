@@ -14,19 +14,41 @@
         </mat-card-subtitle>
       </mat-card-header>
   
-      <mat-card-content class="entry-form">
+      <mat-card-content>
         
-        <mat-tab-group [(selectedIndex)]="selectedIndex" (animationDone)="tabAnimationDone()">
+        <mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="selectedTabChange()" (animationDone)="tabAnimationDone()">
           <mat-tab label="Login">
-            <form (ngSubmit)="submit()" #entryForm="ngForm">
+            <form [formGroup]="entryForm" (ngSubmit)="submit()" #_form1="ngForm">
+              <div *ngIf="error" class="panel panel-danger">{{ error }}</div>
+              
               <mat-form-field class="full-width">
-                <input [(ngModel)]="user.username" name="username" type="text" matInput placeholder="Username" #username>
+                <input formControlName="username" type="text" matInput placeholder="Username" [errorStateMatcher]="matcher" #_username> 
+                
+                <!-- Synchronous Errors -->
+                <mat-error *ngIf="username.errors?.required"> Username is required. </mat-error>
+                <mat-error *ngIf="username.errors?.minlength"> Username must be at least 6 characters. </mat-error>
+                <mat-error *ngIf="username.errors?.maxlength"> Username must not be greater than 50 characters. </mat-error>
+
+                <!-- Error fetched from a server -->
+                <mat-error *ngIf="username.errors?.customError">
+                  {{ username.errors?.customError }}
+                </mat-error>
               </mat-form-field>
+
               <mat-form-field class="full-width">
-                <input [(ngModel)]="user.password" name="password" [type]="hidePassword ? 'password' : 'text'" matInput placeholder="Password">
-                <button type="button" *ngIf="user.password && user.password?.length !== 0" mat-button matSuffix mat-icon-button aria-label="Show/Hide Password" (click)="hidePassword = !hidePassword" [matTooltip]="hidePassword ? 'Show':'Hide'">
+                <input formControlName="password" [type]="hidePassword ? 'password' : 'text'" matInput placeholder="Password" [errorStateMatcher]="matcher">
+                <button type="button" *ngIf="password && password?.length !== 0" mat-button matSuffix mat-icon-button aria-label="Show/Hide Password" (click)="hidePassword = !hidePassword" [matTooltip]="hidePassword ? 'Show':'Hide'">
                   <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
                 </button>
+
+                <!-- Synchronous Errors -->
+                <mat-error *ngIf="password.errors?.required"> Password is required.</mat-error>
+                <mat-error *ngIf="password.errors?.minlength"> Password must be at least 6 characters.</mat-error>
+
+                <!-- Error fetched from a server -->
+                <mat-error *ngIf="password.errors?.customError">
+                  {{ password.errors?.customError }}
+                </mat-error>
               </mat-form-field>
                 
               <div class="spacer-s flex-between">
@@ -37,20 +59,53 @@
           </mat-tab>
   
           <mat-tab label="Register">
-            <form (ngSubmit)="submit()" #entryForm="ngForm">
+            <form [formGroup]="entryForm" (ngSubmit)="submit()" #_form2="ngForm">
+              <div *ngIf="error" class="panel panel-danger">{{ error }}</div>
+
               <mat-form-field class="full-width">
-                <input [(ngModel)]="user.name" name="name" type="text" matInput placeholder="Name" #name>
+                <input formControlName="name" type="text" matInput placeholder="Name" [errorStateMatcher]="matcher" #_name> 
+                
+                <!-- Synchronous Errors -->
+                <mat-error *ngIf="name.errors?.required"> Name is required. </mat-error>
+                <mat-error *ngIf="name.errors?.minlength"> Name must be at least 10 characters. </mat-error>
+                <mat-error *ngIf="name.errors?.maxlength"> Name must not be greater than 50 characters. </mat-error>
+
+                <!-- Error fetched from a server -->
+                <mat-error *ngIf="name.errors?.customError">
+                  {{ name.errors?.customError }}
+                </mat-error>
               </mat-form-field>
+              
               <mat-form-field class="full-width">
-                <input [(ngModel)]="user.username" name="username" type="text" matInput placeholder="Username">
+                <input formControlName="username" type="text" matInput placeholder="Username" [errorStateMatcher]="matcher" #_username> 
+                
+                <!-- Synchronous Errors -->
+                <mat-error *ngIf="username.errors?.required"> Username is required. </mat-error>
+                <mat-error *ngIf="username.errors?.minlength"> Username must be at least 6 characters. </mat-error>
+                <mat-error *ngIf="username.errors?.maxlength"> Username must not be greater than 50 characters. </mat-error>
+
+                <!-- Error fetched from a server -->
+                <mat-error *ngIf="username.errors?.customError">
+                  {{ username.errors?.customError }}
+                </mat-error>
               </mat-form-field>
+
               <mat-form-field class="full-width">
-                <input [(ngModel)]="user.password" name="password" [type]="hidePassword ? 'password' : 'text'" matInput placeholder="Password">
-                <button type="button" *ngIf="user.password && user.password?.length !== 0" mat-button matSuffix mat-icon-button aria-label="Show/Hide Password" (click)="hidePassword = !hidePassword" [matTooltip]="hidePassword ? 'Show':'Hide'">
+                <input formControlName="password" [type]="hidePassword ? 'password' : 'text'" matInput placeholder="Password" [errorStateMatcher]="matcher">
+                <button type="button" *ngIf="password && password?.length !== 0" mat-button matSuffix mat-icon-button aria-label="Show/Hide Password" (click)="hidePassword = !hidePassword" [matTooltip]="hidePassword ? 'Show':'Hide'">
                   <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
                 </button>
+
+                <!-- Synchronous Errors -->
+                <mat-error *ngIf="password.errors?.required"> Password is required.</mat-error>
+                <mat-error *ngIf="password.errors?.minlength"> Password must be at least 6 characters.</mat-error>
+
+                <!-- Error fetched from a server -->
+                <mat-error *ngIf="password.errors?.customError">
+                  {{ password.errors?.customError }}
+                </mat-error>
               </mat-form-field>
-      
+                
               <div class="spacer-s flex-between">
                 <a (click)="selectedIndex=0" class="anchor-button">Login instead?</a>
                 <button type="submit" class="uppercase" mat-raised-button color="primary"> Register </button>
@@ -63,7 +118,6 @@
     </mat-card>
   
     <div class="footer">Made with &#10084; by Jonathan Mayol</div>
-
   </div>
 
 </div>

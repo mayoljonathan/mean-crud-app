@@ -3,8 +3,8 @@ const router = express.Router();
 
 const { UserController }  = require('../controllers');
 
-router.get('/', UserController.getAllUser);
-router.get('/:id', UserController.getUser);
+// router.get('/', UserController.getAllUser);
+// router.get('/:id', UserController.getUser);
 
 // For logging in and registering
 router.post('/', UserController.entryUser);

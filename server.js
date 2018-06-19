@@ -10,8 +10,8 @@ const session = require('express-session');
 const app = express();
 
 // Connect to the database
-// mongoose.connect('mongodb://localhost/mean-crud')
-mongoose.connect('mongodb://admin1:admin1@ds247330.mlab.com:47330/mean-crud-app')
+mongoose.connect('mongodb://localhost/mean-crud')
+// mongoose.connect('mongodb://admin1:admin1@ds247330.mlab.com:47330/mean-crud-app')
 	.then(() => console.log('Mongoose: Connection Successfull'))
 	.catch((err) => console.error(err));
 

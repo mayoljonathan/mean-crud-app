@@ -28,13 +28,13 @@ class JSONResponse {
         let suffix = errorMessage.search('_1');
         let field = errorMessage.slice(0, suffix);
         
-        data.message = `${field.charAt(0).toUpperCase() + field.slice(1)} is already taken.`;
+        data.message = `${field.charAt(0).toUpperCase() + field.slice(1)} is already used.`;
         data.status = 409;
         data.errorName = 'ValidationError';
         
         _errors.push({
           field: field,
-          message: `Duplicate value of ${field}.`
+          message: data.message
         });
       
       // A normal error object return in mongoose validation
